@@ -9,16 +9,15 @@ export default class Bonjour extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {text: ""};
+        this.state = {show: true, text: ""};
     }
-
-    nom = "RIVAULT";
-    prenom = "Vincent";
 
     componentDidMount() {
         this.setState({text: "Cliquer sur un bouton"});
-        // const hello = localStorage.getItem('Hello World !');
-        // this.setState(hello);
+        // let texte = localStorage.getItem('texte');
+        // this.setState({text: texte});
+        // this.setState({text: localStorage.getItem('texte')});
+
     }
 
     componentDidUpdate() {
@@ -29,19 +28,15 @@ export default class Bonjour extends React.Component {
         
     }
 
-    handleClick = () => {
+    handleShow = () => {
         // console.log("Hello World !");
-        this.setState({text: "Ma Todolist !"});
-        // const clicBouton = this.state;
-        // localStorage.setItem("Cliquer sur un bouton", clicBouton);
-        const hello = this.state;
-        localStorage.setItem('Ma Todolist !', hello);
+        this.setState({show: true, text: "Afficher la liste"});
+        localStorage.setItem('texte', 'Afficher la liste');
     }
 
-    handleDelete = () => {
-        this.setState({text: ""});
-        localStorage.removeItem('Ma Todolist !');
-        // localStorage.removeItem("Cliquer sur un bouton");
+    handleHide = () => {
+        this.setState({show: false, text: "Masquer la liste"});
+        localStorage.setItem('texte', 'Masquer la liste');
     }
 
     render() {
@@ -49,20 +44,20 @@ export default class Bonjour extends React.Component {
             <div className="Bonjour" style={ { margin: '50px auto' } }>
                 <Container text>
                     <Header as="h2">
-                        Bonjour {this.prenom} !
+                        Bonjour !
                     </Header>
                     <Header as="h3">
                         {this.state.text}
                     </Header>
-                    <Button primary onClick={this.handleClick}>
-                        Afficher
+                    <Button primary onClick={this.handleShow}>
+                        Afficher la liste
                     </Button>
-                    <Button secondary onClick={this.handleDelete}>
-                        Effacer
+                    <Button secondary onClick={this.handleHide}>
+                        Masquer la liste
                     </Button>
                 </Container>
                 <div style={ { margin: '50px auto' } }>
-                    <Todolist />
+                    <Todolist show={this.state.show} />
                 </div>
             </div>
             
@@ -97,11 +92,11 @@ function storageAvailable(type) {
 }
 
 if (storageAvailable('localStorage')) {
-	console.log("Nous pouvons utiliser localStorage");
+	// console.log("Nous pouvons utiliser localStorage");
     // Nous pouvons utiliser localStorage
 }
 else {
-	console.log("Malheureusement, localStorage n'est pas disponible");
+	// console.log("Malheureusement, localStorage n'est pas disponible");
     // Malheureusement, localStorage n'est pas disponible
 }
 
