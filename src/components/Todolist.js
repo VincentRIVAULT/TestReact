@@ -83,6 +83,10 @@ export default class Todolist extends React.Component {
             }
         }
         let index = 0;
+        let count;
+        for (let i=0; i<nTodos; i++) {
+            count = (index + i) + 1;
+        }
         return (
             <div className="Todolist">
                 <Container text>
@@ -136,14 +140,15 @@ export default class Todolist extends React.Component {
                             Confirmation
                         </Header>
                         <Modal.Content>
-                            Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.todos[index]} ?
+                            {/* Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.todos[index]} ? */}
+                            Vous confirmez la suppression de la tâche numéro {count} : {this.state.todos[index]} ?
                         </Modal.Content>
                         <Modal.Actions>
                             <Button color='black' onClick={this.handleCancel}>
                                 Non
                             </Button>
                             <Button color='red' onClick={() => this.handleDelete()}>
-                                Oui <Icon name='trash' floated='right' />
+                                Oui <Icon name='trash' />
                             </Button>
                         </Modal.Actions>
                     </Modal>
