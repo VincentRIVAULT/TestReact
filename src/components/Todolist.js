@@ -136,7 +136,7 @@ export default class Todolist extends React.Component {
                             Confirmation
                         </Header>
                         <Modal.Content>
-                            Vous confirmez la suppression de la tâche numéro {index + (index + 1)} : {this.state.todos[index]} ?
+                            Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.todos[index]} ?
                         </Modal.Content>
                         <Modal.Actions>
                             <Button color='black' onClick={this.handleCancel}>
