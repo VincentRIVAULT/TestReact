@@ -11,20 +11,21 @@ export default class Todolist extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {nvTache: "", tabTaches: [], open: false};
+        this.state = {tache: "", todos: [], open: false};
     }
 
     state = {
-        nvTache: "",
-        tabTaches: [],
+        tache: "",
+        todos: [],
         open: false
     };
 
     componentDidMount() {
-        // this.setState({nvTache: "", tabTaches: []});
-        let listeTaches = JSON.parse(localStorage.getItem('tâches'));
-        this.setState({nvTache: "", tabTaches: listeTaches});
-        // this.setState({nvTache: "", tabTaches: JSON.parse(localStorage.getItem('tâches'))});
+        !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
+        // this.setState({tache: "", todos: []});
+        // let todos = JSON.parse(localStorage.getItem('todos'));
+        // this.setState({tache: "", todos: todos});
+        // this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
     }
 
     // componentDidUpdate() {
@@ -35,18 +36,18 @@ export default class Todolist extends React.Component {
     handleChange = (e) => {
         // console.log(e.currentTarget.value);
         // this.setInput(e.currentTarget.value);
-        this.setState({nvTache: e.currentTarget.value});
+        this.setState({tache: e.currentTarget.value});
     }
     
     handleSubmit = (e) => {
-        // console.log(this.state.nvTache);
+        // console.log(this.state.tache);
         e.preventDefault();
-        if (this.state.nvTache !== "") {
-            let listeTaches = this.state.tabTaches;
-            listeTaches.push(this.state.nvTache);
-            this.setState({tabTaches: listeTaches});
-            localStorage.setItem('tâches', JSON.stringify(this.state.tabTaches));
-            this.setState({nvTache: ""});
+        if (this.state.tache !== "") {
+            let todos = this.state.todos;
+            todos.push(this.state.tache);
+            this.setState({todos: todos});
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
+            this.setState({tache: ""});
 
         }
     }
@@ -57,24 +58,27 @@ export default class Todolist extends React.Component {
 
     handleDelete = (index) => {
         //  console.log(index);
-        // if (window.confirm(`Voulez-vous vraiment effacer cette tâche n° ${index + 1} : ${this.state.tabTaches[index]} ?`)) {
-            let listeTaches = this.state.tabTaches;
-            listeTaches.splice(index, 1);
-            this.setState({tabTaches: listeTaches});
-            localStorage.setItem('tâches', JSON.stringify(this.state.tabTaches));
+        // if (window.confirm(`Voulez-vous vraiment effacer cette tâche n° ${index + 1} : ${this.state.todos[index]} ?`)) {
+            let todos = this.state.todos;
+            todos.splice(index, 1);
+            this.setState({todos: todos});
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
             this.setState({ open: false });
         // }
     }
 
     render () {
+        if (!this.state.todos) {
+            return "";
+        }
+        let nTodos = this.state.todos.length;
         // console.log(this.props.show);
-        let nbTaches = (this.state.tabTaches).length;
         if (!this.props.show) {
-            if (nbTaches === 0) {
+            if (nTodos === 0) {
                 return (<Header as='h4'>Il ne reste aucune tâche à effectuer...</Header>);
             } else {
                 return (
-                    nbTaches === 1 ? <Header as='h4'>Il reste {nbTaches} tâche à effectuer...</Header> : <Header as='h4'>Il reste {nbTaches} tâches à effectuer...</Header>
+                    nTodos === 1 ? <Header as='h4'>Il reste {nTodos} tâche à effectuer...</Header> : <Header as='h4'>Il reste {nTodos} tâches à effectuer...</Header>
                 );
             }
         }
@@ -89,7 +93,7 @@ export default class Todolist extends React.Component {
                             </Label>
                             <Input
                                 placeholder="Veuillez indiquer une tâche"
-                                value={this.state.nvTache}
+                                value={this.state.tache}
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
@@ -99,7 +103,7 @@ export default class Todolist extends React.Component {
                     </Form>
                     <div style={ { margin: '50px auto' } }>
                         <List as='ol'>
-                            {this.state.tabTaches.map((tache, index) => 
+                            {this.state.todos.map((tache, index) => 
                                 <List.Item key={index}>
                                     <List.Content floated='right'>
                                         <Button 
@@ -132,14 +136,14 @@ export default class Todolist extends React.Component {
                             Confirmation
                         </Header>
                         <Modal.Content>
-                            Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.tabTaches[index]} ?
+                            Vous confirmez la suppression de la tâche numéro {index + (index + 1)} : {this.state.todos[index]} ?
                         </Modal.Content>
                         <Modal.Actions>
                             <Button color='black' onClick={this.handleCancel}>
                                 Non
                             </Button>
                             <Button color='red' onClick={() => this.handleDelete()}>
-                                Oui <Icon name='trash' />
+                                Oui <Icon name='trash' floated='right' />
                             </Button>
                         </Modal.Actions>
                     </Modal>

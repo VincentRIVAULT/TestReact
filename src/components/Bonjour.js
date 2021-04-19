@@ -44,7 +44,7 @@ export default class Bonjour extends React.Component {
             <div className="Bonjour" style={ { margin: '50px auto' } }>
                 <Container text>
                     <Header as="h2">
-                        Bonjour !
+                        Ma React Todolist !
                     </Header>
                     <Header as="h3">
                         {this.state.text}
