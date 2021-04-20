@@ -11,13 +11,14 @@ export default class Todolist extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {tache: "", todos: [], open: false};
+        this.state = {tache: "", todos: [], open: false, curentIndex: []};
     }
 
     state = {
         tache: "",
         todos: [],
-        open: false
+        open: false,
+        currentIndex: []
     };
 
     componentDidMount() {
@@ -83,11 +84,6 @@ export default class Todolist extends React.Component {
                 );
             }
         }
-        let index = 0;
-        let count;
-        for (let i=0; i<nTodos; i++) {
-            count = (index + i) + 1;
-        }
         return (
             <div className="Todolist">
                 <Container text>
@@ -142,7 +138,7 @@ export default class Todolist extends React.Component {
                         </Header>
                         <Modal.Content>
                             {/* Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.todos[index]} ? */}
-                            Vous confirmez la suppression de la tâche numéro {count} : {this.state.todos[index]} ?
+                            Vous confirmez la suppression de la tâche numéro {this.state.currentIndex + 1} : {this.state.todos[this.state.currentIndex]} ?
                         </Modal.Content>
                         <Modal.Actions>
                             <Button color='black' onClick={this.handleCancel}>
