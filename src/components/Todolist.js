@@ -11,19 +11,17 @@ export default class Todolist extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {tache: "", todos: [], open: false, currentIndex: []};
+        this.state = {tache: "", todos: [], open: false};
     }
 
     state = {
         tache: "",
         todos: [],
-        open: false,
-        currentIndex: []
+        open: false
     };
 
     componentDidMount() {
         !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
-        // this.setState({currentIndex: []});
         // this.setState({tache: "", todos: []});
         // let todos = JSON.parse(localStorage.getItem('todos'));
         // this.setState({tache: "", todos: todos});
@@ -85,11 +83,6 @@ export default class Todolist extends React.Component {
                 );
             }
         }
-        let index = 0;
-        let count;
-        for (let i=0; i<nTodos; i++) {
-            count = (index + i) + 1;
-        }
         return (
             <div className="Todolist">
                 <Container text>
@@ -115,7 +108,7 @@ export default class Todolist extends React.Component {
                                     <List.Content floated='right'>
                                         <Button 
                                             color='red'
-                                            onClick={() => {this.setState({ open: true })}}
+                                            onClick={() => {this.setState({ open: true, id: index })}}
                                         >
                                             Supprimer
                                         </Button>
@@ -143,16 +136,13 @@ export default class Todolist extends React.Component {
                             Confirmation
                         </Header>
                         <Modal.Content>
-                            Vous confirmez la suppression de la tâche numéro {index + 1} : {this.state.todos[index]} ?
-                            {/* Vous confirmez la suppression de la tâche numéro {this.state.currentIndex + 1} : {this.state.todos[this.state.currentIndex]} ?
-                            {console.log(this.state.currentIndex)}
-                            {console.log(this.state.todos[this.state.currentIndex])} */}
+                            Vous confirmez la suppression de la tâche numéro {this.state.id + 1} : {this.state.todos[this.state.id]} ?
                         </Modal.Content>
                         <Modal.Actions>
                             <Button color='black' onClick={this.handleCancel}>
                                 Non
                             </Button>
-                            <Button color='red' onClick={() => this.handleDelete()}>
+                            <Button color='red' onClick={() => this.handleDelete(this.state.id)}>
                                 Oui <Icon name='trash' />
                             </Button>
                         </Modal.Actions>
