@@ -69,6 +69,7 @@ export default class Todolist extends React.Component {
 
     render () {
         if (!this.state.todos) {
+            this.setState({tache: "", todos: []});
             return "";
         }
         let nTodos = this.state.todos.length;
