@@ -33,11 +33,6 @@ export default class Todolist extends React.Component {
         //     this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
         // }
         localStorage.getItem('todos') === null ? localStorage.setItem('todos', JSON.stringify(this.state.todos)) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
-        // !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
-        // this.setState({tache: "", todos: []});
-        // let todos = JSON.parse(localStorage.getItem('todos'));
-        // this.setState({tache: "", todos: todos});
-        // this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
     }
 
     componentDidUpdate() {
