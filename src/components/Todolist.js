@@ -21,7 +21,19 @@ export default class Todolist extends React.Component {
 
     componentDidMount() {
         // console.log('coucou');
-        !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
+
+        // création du tableau
+        // if (localStorage.getItem('todos') === null) {
+        //     console.log('tableau vide');
+        //     localStorage.setItem('todos', JSON.stringify(this.state.todos));
+        // }
+        // else {
+        //     console.log('recupere la liste');
+        //     // console.log(localStorage.getItem('todos'));
+        //     this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
+        // }
+        localStorage.getItem('todos') === null ? localStorage.setItem('todos', JSON.stringify(this.state.todos)) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
+        // !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
         // this.setState({tache: "", todos: []});
         // let todos = JSON.parse(localStorage.getItem('todos'));
         // this.setState({tache: "", todos: todos});
@@ -71,12 +83,13 @@ export default class Todolist extends React.Component {
     }
 
     render () {
+        // affichage du tableau
         if (!this.state.todos) {
-            this.componentDidMount();
             return "";
         }
         let nTodos = this.state.todos.length;
         // console.log(this.props.show);
+        // affichage du texte
         if (!this.props.show) {
             if (nTodos === 0) {
                 return (<Header as='h4'>Il ne reste aucune tâche à effectuer...</Header>);
