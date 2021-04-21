@@ -20,6 +20,7 @@ export default class Todolist extends React.Component {
     };
 
     componentDidMount() {
+        // console.log('coucou');
         !_.isArray(this.state.todos) ? this.setState({tache: "", todos: []}) : this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
         // this.setState({tache: "", todos: []});
         // let todos = JSON.parse(localStorage.getItem('todos'));
@@ -27,9 +28,13 @@ export default class Todolist extends React.Component {
         // this.setState({tache: "", todos: JSON.parse(localStorage.getItem('todos'))});
     }
 
-    // componentDidUpdate() {
-    // }
-
+    componentDidUpdate() {
+        
+    }
+    
+    componentWillUnmount() {
+        
+    }
     
     handleChange = (e) => {
         // console.log(e.currentTarget.value);
