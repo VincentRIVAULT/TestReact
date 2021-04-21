@@ -29,7 +29,6 @@ export default class Todolist extends React.Component {
     }
 
     // componentDidUpdate() {
-
     // }
 
     
@@ -52,7 +51,7 @@ export default class Todolist extends React.Component {
         }
     }
 
-    handleCancel = () => this.setState({ open: false });
+    // handleCancel = () => this.setState({ open: false });
 
     // handleConfirm = () => this.handleDelete();
 
@@ -69,7 +68,7 @@ export default class Todolist extends React.Component {
 
     render () {
         if (!this.state.todos) {
-            this.setState({tache: "", todos: []});
+            this.componentDidMount();
             return "";
         }
         let nTodos = this.state.todos.length;
@@ -139,7 +138,7 @@ export default class Todolist extends React.Component {
                             Vous confirmez la suppression de la tâche numéro {this.state.id + 1} : {this.state.todos[this.state.id]} ?
                         </Modal.Content>
                         <Modal.Actions>
-                            <Button color='black' onClick={this.handleCancel}>
+                            <Button color='black' onClick={() => this.setState({ open: false  })}>
                                 Non
                             </Button>
                             <Button color='red' onClick={() => this.handleDelete(this.state.id)}>
