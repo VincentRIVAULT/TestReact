@@ -11,13 +11,12 @@ export default class Todolist extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {tache: "", todos: [], open: false};
+        this.state = {tache: "", todos: []};
     }
 
     state = {
         tache: "",
-        todos: [],
-        open: false
+        todos: []
     };
 
     componentDidMount() {
